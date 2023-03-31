@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.isep.acme.model.User;
-import com.isep.acme.model.UserView;
-import com.isep.acme.model.UserViewMapper;
+import com.isep.acme.domain.model.User;
+import com.isep.acme.domain.model.UserView;
+import com.isep.acme.dto.mapper.UserViewMapper;
 
 import javax.validation.Valid;
 import java.time.Instant;
