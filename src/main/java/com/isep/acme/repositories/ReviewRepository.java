@@ -12,11 +12,9 @@ import java.util.Optional;
 
 public interface ReviewRepository extends CrudRepository<Review, Long> {
 
-    //Optional<Review> findById(Long productId);
 
     @Query("SELECT r FROM Review r WHERE r.product=:product ORDER BY r.publishingDate DESC")
     Optional<List<Review>> findByProductId(Product product);
-
 
     @Query("SELECT r FROM Review r WHERE r.approvalStatus='pending'")
     Optional<List<Review>> findPendingReviews();
