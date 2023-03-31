@@ -1,4 +1,4 @@
-package com.isep.acme.Authentication;
+package com.isep.acme.authentication;
 
 import lombok.Data;
 
@@ -8,9 +8,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AuthenticationRequest {
 
-    @NotNull
     @Email
+    @NotNull
     String username;
+    
     @NotNull
     String password;
 }
