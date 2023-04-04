@@ -50,4 +50,21 @@ public class RabbitmqConfig {
             Queue productCreatedQueue) {
         return BindingBuilder.bind(productCreatedQueue).to(productCreatedExchange);
     }
+
+    @Bean
+    public FanoutExchange reviewCreatedExchange() {
+        return new FanoutExchange("review.review-created");
+    }
+    
+    @Bean
+    public Queue reviewCreatedQueue(String instanceId) {
+        return new Queue("review.review-created.review-query." + instanceId, true, true, true);
+    }
+
+    @Bean
+    public Binding reviewCreatedBindingReviewCreated(FanoutExchange reviewCreatedExchange,
+            Queue reviewCreatedQueue) {
+        return BindingBuilder.bind(reviewCreatedQueue).to(reviewCreatedExchange);
+    }
+
 }
