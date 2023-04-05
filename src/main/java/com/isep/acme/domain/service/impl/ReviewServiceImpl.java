@@ -1,4 +1,4 @@
-package com.isep.acme.domain.service;
+package com.isep.acme.domain.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +14,10 @@ import com.isep.acme.domain.model.User;
 import com.isep.acme.domain.repository.ProductRepository;
 import com.isep.acme.domain.repository.ReviewRepository;
 import com.isep.acme.domain.repository.UserRepository;
+import com.isep.acme.domain.service.RatingService;
+import com.isep.acme.domain.service.RestService;
+import com.isep.acme.domain.service.ReviewService;
+import com.isep.acme.domain.service.UserService;
 import com.isep.acme.dto.ReviewDTO;
 import com.isep.acme.dto.mapper.ReviewMapper;
 import com.isep.acme.dto.request.CreateReviewDTO;
