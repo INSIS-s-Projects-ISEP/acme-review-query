@@ -10,7 +10,7 @@ public interface ReviewService {
 
     Iterable<Review> findAll();
 
-    List<Review> getReviewsOfProduct(String sku, String status);
+    List<Review> getReviewsOfProduct(String sku, ApprovalStatus approvalStatus);
 
     Double getWeightedAverage(Product product);
 

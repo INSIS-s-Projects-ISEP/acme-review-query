@@ -1,5 +1,8 @@
 package com.isep.acme.dto.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 import com.isep.acme.domain.model.Product;
@@ -65,6 +68,13 @@ public class ReviewMapper {
             review.getProduct().getSku(),
             review.getUser(),
             review.getRate()
+        );
+    }
+
+    public List<ReviewResponse> toResponseList(List<Review> reviews){
+        return (reviews.stream()
+            .map(this::toResponse)
+            .collect(Collectors.toList())
         );
     }
 }

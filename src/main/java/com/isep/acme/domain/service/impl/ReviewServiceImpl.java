@@ -30,9 +30,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviewsOfProduct(String sku, String status) {
+    public List<Review> getReviewsOfProduct(String sku, ApprovalStatus approvalStatus) {
         Product product = productRepository.findBySku(sku).orElseThrow();
-        return reviewRepository.findByProductAndApprovalStatus(product, status);
+        return reviewRepository.findByProductAndApprovalStatus(product, approvalStatus);
     }
 
     @Override
