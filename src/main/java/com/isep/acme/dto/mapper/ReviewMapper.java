@@ -58,7 +58,8 @@ public class ReviewMapper {
             review.getPublishingDate(), 
             review.getApprovalStatus(), 
             review.getFunFact(), 
-            review.getRate()
+            review.getRate(),
+            review.getUser()
         );
     }
 

@@ -20,5 +20,6 @@ public class ReviewResponse {
     private ApprovalStatus approvalStatus;
     private String funFact;
     private Double rate;
+    private String user;
 
 }
