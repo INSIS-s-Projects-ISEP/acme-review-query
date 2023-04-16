@@ -1,6 +1,7 @@
 package com.isep.acme.domain.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -76,14 +77,14 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void deleteReview(Long reviewId){
+    public void deleteReview(UUID reviewId){
         reviewRepository.deleteById(reviewId);
     }
 
     @Override
-    public Review moderateReview(Long reviewID, ApprovalStatus approvalStatus){
+    public Review moderateReview(UUID reviewId, ApprovalStatus approvalStatus){
 
-        Review review = reviewRepository.findById(reviewID).orElseThrow(() -> {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> {
             throw new ResourceNotFoundException("Review not found");
         });
 

@@ -1,12 +1,11 @@
 package com.isep.acme.domain.model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,8 +28,7 @@ import lombok.Setter;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idReview;
+    private UUID reviewId;
 
     @Column(nullable = false)
     private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;

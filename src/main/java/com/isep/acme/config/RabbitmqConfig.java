@@ -17,6 +17,11 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
 
     @Bean
+    public Jackson2JsonMessageConverter jackson2JsonMessageConverter(){
+        return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory,
             Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
 
@@ -65,6 +70,19 @@ public class RabbitmqConfig {
     public Binding reviewCreatedBindingReviewCreated(FanoutExchange reviewCreatedExchange,
             Queue reviewCreatedQueue) {
         return BindingBuilder.bind(reviewCreatedQueue).to(reviewCreatedExchange);
+    }
+
+    // Bootstrapper
+    // Product
+    @Bean
+    public FanoutExchange rpcProductExchange(){
+        return new FanoutExchange("rpc.product.review-query-bootstrapper");
+    }
+    
+    // Review
+    @Bean
+    public FanoutExchange rpcReviewExchange(){
+        return new FanoutExchange("rpc.review.review-query-bootstrapper");
     }
 
 }

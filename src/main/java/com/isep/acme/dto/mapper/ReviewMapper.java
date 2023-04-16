@@ -1,10 +1,13 @@
 package com.isep.acme.dto.mapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.isep.acme.domain.model.Product;
 import com.isep.acme.domain.model.Review;
 import com.isep.acme.domain.repository.ProductRepository;
@@ -19,6 +22,7 @@ import lombok.AllArgsConstructor;
 public class ReviewMapper {
 
     private final ProductRepository productRepository;
+    private final ObjectMapper objectMapper;
 
     public Review toEntity(ReviewRequest reviewRequest){
         
@@ -34,7 +38,7 @@ public class ReviewMapper {
 
         Product product = productRepository.findBySku(reviewMessage.getSku()).orElseThrow();
         return new Review(
-            reviewMessage.getIdReview(),
+            reviewMessage.getReviewId(),
             reviewMessage.getApprovalStatus(),
             reviewMessage.getReviewText(),
             reviewMessage.getReport(),
@@ -48,7 +52,7 @@ public class ReviewMapper {
 
     public ReviewResponse toResponse(Review review){
         return new ReviewResponse(
-            review.getIdReview(),
+            review.getReviewId(),
             review.getReviewText(), 
             review.getPublishingDate(), 
             review.getApprovalStatus(), 
@@ -59,7 +63,7 @@ public class ReviewMapper {
 
     public ReviewMessage toMessage(Review review){
         return new ReviewMessage(
-            review.getIdReview(),
+            review.getReviewId(),
             review.getApprovalStatus(),
             review.getReviewText(),
             review.getReport(),
@@ -74,6 +78,19 @@ public class ReviewMapper {
     public List<ReviewResponse> toResponseList(List<Review> reviews){
         return (reviews.stream()
             .map(this::toResponse)
+            .collect(Collectors.toList())
+        );
+    }
+
+    public List<ReviewMessage> toMessageList(String messages) throws Exception {
+        TypeReference<Map<String, List<ReviewMessage>>> mapType = new TypeReference<>() {};
+        Map<String, List<ReviewMessage>> response = objectMapper.readValue(messages, mapType);
+        return response.get("response");
+    }
+
+    public List<Review> toEntityList(List<ReviewMessage> messages) {
+        return (messages.stream()
+            .map(this::toEntity)
             .collect(Collectors.toList())
         );
     }
