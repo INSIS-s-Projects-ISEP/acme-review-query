@@ -1,6 +1,7 @@
 package com.isep.acme.messaging;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -45,6 +46,36 @@ public class ReviewConsumer {
         Review review = reviewMapper.toEntity(reviewMessage);
         reviewService.save(review);
         log.info("Review created: " + reviewMessage.getReviewId());
+
+        channel.basicAck(tag, false);
+    }
+
+    @RabbitListener(queues = "#{reviewUpdatedQueue.name}", ackMode = "MANUAL")
+    public void reviewUpdated(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
+        
+        MessageProperties messageProperties = message.getMessageProperties();
+        if(messageProperties.getAppId().equals(instanceId)){
+            channel.basicAck(tag, false);
+            log.info("Received own message and ignored it.");
+            return;
+        }
+
+        ReviewMessage reviewMessage = (ReviewMessage) messageConverter.fromMessage(message);
+        log.info("Review received: " + reviewMessage.getReviewId());
+
+        Review review = reviewMapper.toEntity(reviewMessage);
+        reviewService.moderateReview(review.getReviewId(), review.getApprovalStatus());
+        log.info("Review updated: " + reviewMessage.getReviewId());
+
+        channel.basicAck(tag, false);
+    }
+
+    @RabbitListener(queues = "#{reviewDeletedQueue.name}", ackMode = "MANUAL")
+    public void reviewDeleted(UUID reviewId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
+        
+        log.info("Review received: " + reviewId);
+        reviewService.deleteReview(reviewId);
+        log.info("Review deleted: " + reviewId);
 
         channel.basicAck(tag, false);
     }

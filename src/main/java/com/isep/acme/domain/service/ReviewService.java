@@ -9,7 +9,7 @@ import com.isep.acme.domain.model.enumarate.ApprovalStatus;
 
 public interface ReviewService {
 
-    Iterable<Review> findAll();
+    List<Review> findAll();
 
     List<Review> getReviewsOfProduct(String sku, ApprovalStatus approvalStatus);
 

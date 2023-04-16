@@ -53,6 +53,7 @@ public class ReviewMapper {
     public ReviewResponse toResponse(Review review){
         return new ReviewResponse(
             review.getReviewId(),
+            review.getProduct().getSku(),
             review.getReviewText(), 
             review.getPublishingDate(), 
             review.getApprovalStatus(), 

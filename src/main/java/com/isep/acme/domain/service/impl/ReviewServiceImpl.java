@@ -26,7 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Override
-    public Iterable<Review> findAll() {
+    public List<Review> findAll() {
         return reviewRepository.findAll();
     }
 

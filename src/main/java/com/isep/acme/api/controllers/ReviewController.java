@@ -26,6 +26,14 @@ class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper reviewMapper;
 
+    @Operation(summary = "gets all reviews")
+    @GetMapping("/reviews")
+    public ResponseEntity<List<ReviewResponse>> findAllReviews() {
+        List<Review> reviews = reviewService.findAll();
+        List<ReviewResponse> reviewResponses = reviewMapper.toResponseList(reviews);
+        return ResponseEntity.ok().body(reviewResponses);
+    }
+
     @Operation(summary = "finds a product through its sku and shows its review by status")
     @GetMapping("/products/{sku}/reviews/{approvalStatus}")
     public ResponseEntity<List<ReviewResponse>> findById(@PathVariable String sku, @PathVariable ApprovalStatus approvalStatus) {

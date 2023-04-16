@@ -14,6 +14,7 @@ import lombok.Setter;
 public class ReviewResponse {
 
     private UUID reviewId;
+    private String sku;
     private String reviewText;
     private LocalDate publishingDate;
     private ApprovalStatus approvalStatus;

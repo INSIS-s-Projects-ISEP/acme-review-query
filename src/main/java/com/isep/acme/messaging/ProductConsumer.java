@@ -34,4 +34,15 @@ public class ProductConsumer {
         channel.basicAck(tag, false);
         log.info("Product created: " + product.getSku());
     }
+
+    @RabbitListener(queues = {"#{productDeletedQueue.name}"})
+    public void productDeleted(ProductMessage productMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
+        log.info("Product received: " + productMessage.getSku());
+
+        Product product = productMapper.toEntity(productMessage);
+        productService.deleteBySku(product.getSku());
+        channel.basicAck(tag, false);
+        
+        log.info("Product deleted: " + product.getSku());
+    }
 }

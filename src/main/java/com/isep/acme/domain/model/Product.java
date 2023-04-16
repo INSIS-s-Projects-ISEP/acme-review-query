@@ -18,7 +18,7 @@ import lombok.ToString;
 public class Product {
 
     @Id
-    private UUID productId;
+    private UUID productId = UUID.randomUUID();
 
     @Column(nullable = false, unique = true)
     public String sku;
