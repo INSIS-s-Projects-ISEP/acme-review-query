@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.isep.acme.api.controllers.ResourceNotFoundException;
 import com.isep.acme.domain.model.Product;
 import com.isep.acme.domain.model.Review;
 import com.isep.acme.domain.model.enumarate.ApprovalStatus;
@@ -12,6 +11,7 @@ import com.isep.acme.domain.repository.ProductRepository;
 import com.isep.acme.domain.repository.ReviewRepository;
 import com.isep.acme.domain.service.RestService;
 import com.isep.acme.domain.service.ReviewService;
+import com.isep.acme.exception.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
 
